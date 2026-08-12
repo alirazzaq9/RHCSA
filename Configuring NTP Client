@@ -1,0 +1,20 @@
+1. Install Package chrony
+yum install chrony -y
+
+2. Start and enable chronyd service
+systemctl enable chronyd --now
+
+3. Just make sure exiting source of time
+chronyc sources -v
+
+3. Make configuration in /etc/chrony.conf
+vim /etc/chrony.conf
+   
+server   ip_address_server/FQDN  iburst
+save & quit
+
+4. Restart chronyd service
+systemctl restrat chronyd
+
+5. Check the status
+chronyc sources -v
