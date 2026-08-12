@@ -1,0 +1,24 @@
+1) Install packages
+     # dnf install nfs-utils autofs -y
+2) Start and enable autofs service
+     # systemctl enable autofs --now
+     # systemctl status autofs
+3) Test if nfs share is visible on client or not
+     # showmount -e <nfs-server-ip>
+4) Create same user on client and make sure do not create user’s home directory
+     # useradd -u 4001 -b /rhome -M user1
+     # ls /rhome  (it should be empty)
+5) get the path of user home directory from /etc/passwd
+     # grep user1 /etc/passwd
+6) edit autofs config files
+     # vi /etc/auto.master
+       /-   /etc/auto.misc
+     # vi /etc/auto.misc
+       /rhome/user1  -fstype=nfs,rw <server_ip_address>:/remoteusers/user1
+7) restart autofs service
+     # systemctl restart autofs
+
+Validation Steps:
+1) ls /rhome    (it should show user1)
+1) su - user1     (You should be able to switch to user1)
+10) df -h     (you should see the mounted user directory)
