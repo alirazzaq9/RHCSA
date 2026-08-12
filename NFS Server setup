@@ -1,0 +1,20 @@
+1) Install nfs-utils package
+   # dnf install nfs-utils -y
+2) Start and enable nfs-server service
+   # systemctl enable nfs-server --now
+   # systemctl status nfs-server
+3) Add firewall rule to allow traffic on following nfs services
+   # firewall-cmd --add-service={nfs,rpc-bind,mountd} --permanent
+   # firewall-cmd --reload
+   # firewall-cmd --list-services
+4) Create User and change user home directory default path to /remoteusers
+   # mkdir /remoteusers
+   # useradd -u 4001 -b /remoteusers user1
+   # grep user1 /etc/passwd  (just to check if user1 created)
+   # passwd user1
+   
+5) Add Entry in /etc/exports for user directory which we want to share with client
+   # vi /etc/exports
+     /remoteusers  *(rw,sync)
+ 6) Export the share
+   # exportfs -avr
