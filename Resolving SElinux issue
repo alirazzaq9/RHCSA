@@ -1,0 +1,19 @@
+Resolving SElinux issue Step:
+systemctl restart httpd
+curl 192.168.100.120
+grep Listen /etc/httpd/conf/httpd.conf
+semanage port -l | grep http
+man semanage-port | grep http_port_t
+semanage port -a -t http_port_t -p tcp 81
+firewall-cmd --list-port
+firewall-cmd --add-port=83/tcp --permanent
+firewall-cmd --reload
+systemctl restart httpd
+curl 192.168.100.120:83
+grep Document /etc/httpd/conf/httpd.conf
+ls -lZ /newweb1
+man semanage-fcontext | grep web
+semanage fcontext -a -t httpd_sys_content_t "/newweb1(/.*)?"
+restorecon -R -v /newweb1
+systemctl restart httpd
+curl 192.168.100.120:83
