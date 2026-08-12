@@ -1,0 +1,24 @@
+Prerequisite:
+Check system time is Correct.
+    # timedatectl or date
+If system time is correct then proceed with Step 1
+1) Install chrony package
+    #dnf install chrony -y
+2) Start and enable chronyd service
+   # Systemctl enable chronyd --now
+   # systemctl status chronyd
+4) Edit chrony configuration file
+   # vi /etc/chrony.conf
+   allow <Network address.0>/subnet    (like here under)
+   allow 192.168.100.0/24
+save&quit
+5) Restart chronyd service
+   # systemctl restart chronyd
+6) Open Firewall rules
+   # firewall-cmd --add-port={123/udp,323/udp} --permanent
+   # firewall-cmd --reload
+   # firewall-cmd --add-service={ntp,ptp} --permanent
+   # firewall-cmd --reload
+7) Test if any clients are connected 
+   # chronyc clients  -v     (there are no client connected, ll do client side setup now)
+   # timedatectl
