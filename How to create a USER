@@ -1,0 +1,41 @@
+1. To create a default user ---> useradd
+
+2. How to create user with customization:
+ 
+   -u    (Specific UID)
+   -g    (Specific primary group)
+   -G    (Secondary group)
+   -s    (Assign no shell/ No login)
+
+2. How to create group
+   # groupadd <name_group>
+
+3. How to make add and existing user in secondary group:  
+   # usermod -aG  <group_name>  <User_name>
+
+4. How to assign elevated privileges to a user:
+   # visudo
+   
+   <user_name>  ALL=(ALL)  ALL    (With Password)
+
+   <user_name>  ALL=(ALL)  NOPASSWD: ALL  (Without Password)
+
+5. How to assign elevated privileges to a group:
+   # visudo
+   
+   %<group_name>    ALL=(ALL)  ALL    (With Password)
+
+   %<group_name>    ALL=(ALL)  NOPASSWD: ALL  (Without Password)
+
+6. How to lock and unlock Users:
+
+   # passwd -S <user_name>    (To get status of user passwd)
+   # passwd -l <user_name>    (To lock the passwd of user)
+   # passwd -u <user_name>    (To unlock the passwd of user)
+   # grep bob  /etc/passwd    (To get status of user passwd)
+   
+   # usermod -L <user_name>    (To lock the passwd of user)
+   # usermod -U <user_name>    (To unlock the passwd of user)
+   # passwd -S <user_name>    (To get status of user passwd)
+   # grep bob  /etc/passwd    (To get status of user passwd)
+
