@@ -1,0 +1,15 @@
+1. Create a directory "collaboration"
+mkdir /tmp/collaboration
+Is -Id /tmp/collaboration
+2. create group "developers"
+groupadd developers
+3. change group ownership of "collaboration" directory to "developers"
+chgrp developers /tmp/collaboration
+4. Add users in "developers group"
+usermod -aG developers bob
+usermod -aG developers max
+5. set GID (SGID) on "collaboration" directory
+chmod 2775/tmp/collaboration
+6. Attach stickybit so no one else can delete a file except owner.
+chmod o+t /tmp/collaboration
+chmod 3775 /tmp/collaboration
